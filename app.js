@@ -16,10 +16,11 @@ app.use(helmet());
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
-const mongoDB = "mongodb://127.0.0.1:27017/nodejslearn";
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+const dev_db_url = "mongodb://127.0.0.1:27017/nodejslearn";
 //mongoose.connect(mongoDB,{ useNewUrlParser: true }, function (err) { 
 //if (err) throw err; console.log('Successfully connected'); });
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
